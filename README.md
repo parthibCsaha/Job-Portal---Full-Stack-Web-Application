@@ -203,6 +203,8 @@ sequenceDiagram
 #### 🏠 Registration Page
 ![Registration Page](screenshots/register.png)
 
+### 🛡️ Admin Panel
+![Admin Panel](screenshots/admin.png)
 
 ------------------------------------------------------------------------------------------------
 ### ✅ API Endpoints
