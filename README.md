@@ -195,6 +195,60 @@ sequenceDiagram
   Frontend -->> Candidate: Redirect to dashboard  
 ```
 ------------------------------------------------------------------------------------------------
+### ✅ API Endpoints
+#### Authentication (/api/auth)
+
+- POST /api/auth/register → Register a new user
+- POST /api/auth/login → Login & get JWT
+
+#### Users (/api/users) 
+#### (Authenticated user only)
+
+- GET /api/users/profile → Get current user profile
+- PUT /api/users/profile → Update current user profile
+- PUT /api/users/change-password → Change password
+
+#### Jobs (/api/jobs)
+
+- GET /api/jobs → Get all jobs (pagination + sorting)
+- GET /api/jobs/search → Search jobs (keyword, location, jobType, experience, company, pagination)
+- GET /api/jobs/{id} → Get job details
+
+#### (Employer only)
+
+- POST /api/jobs → Create a job
+- PUT /api/jobs/{id} → Update a job
+- DELETE /api/jobs/{id} → Delete a job
+- GET /api/jobs/my-jobs → Get employer's own posted jobs
+
+#### Companies (/api/companies)
+
+- GET /api/companies → Get all companies (paginated)
+- GET /api/companies/{id} → Get company details
+
+#### (Admin only)
+
+- POST /api/companies → Create company
+- PUT /api/companies/{id} → Update company
+- DELETE /api/companies/{id} → Delete company
+
+#### Applications (/api/applications)
+#### (Candidate only)
+
+- POST /api/applications → Apply for a job
+- GET /api/applications/my-applications → Get candidate applications
+
+#### (Employer only)
+
+- GET /api/applications/job/{jobId} → Get all applications for a job
+- PUT /api/applications/{id}/status?status=STATUS → Update application status
+- (STATUS = PENDING / REVIEWED / SHORTLISTED / ACCEPTED / REJECTED)
+
+#### (Candidate or Employer)
+
+- GET /api/applications/{id} → View application by ID
+
+--------------------------------------------------------------------------------------------------
 ### ✅ Features
 
 - Job search with filters (location, type, experience)
@@ -222,5 +276,4 @@ sequenceDiagram
 - React Router
 - Axios
 
-  
 ---------------------------------------------------------------------------------------------------
