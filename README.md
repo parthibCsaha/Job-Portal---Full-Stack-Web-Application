@@ -195,6 +195,12 @@ sequenceDiagram
   Frontend -->> Candidate: Redirect to dashboard  
 ```
 ------------------------------------------------------------------------------------------------
+### 📸 Screenshots
+
+#### 🏠 Landing Page
+![Landing Page](screenshots/home.png)
+
+------------------------------------------------------------------------------------------------
 ### ✅ API Endpoints
 #### Authentication (/api/auth)
 
