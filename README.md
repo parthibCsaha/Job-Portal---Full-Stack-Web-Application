@@ -31,8 +31,7 @@
 ------------------------------------------------------------------------------------------------------------
 ### 🏛️ Architecture
   #### System Architecture
-```  
-  flowchart LR
+flowchart LR
   
     subgraph Client["🌐 Frontend (React + Vite)"]
         UI["User Interface"]
@@ -70,6 +69,6 @@
     Users --> Roles
     Saved --> Users
     Saved --> Jobs
-```
+
 -------------------------------------------------------------------------------------------------
 
