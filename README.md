@@ -29,47 +29,74 @@
     View platform-wide statistics
     Complete system oversight
 ------------------------------------------------------------------------------------------------------------
-### 🏛️ Architecture
-  #### System Architecture
+### System Architecture
 ```mermaid
 flowchart LR
-  
+
+    %% ======================= CLIENT ======================
     subgraph Client["🌐 Frontend (React + Vite)"]
         UI["User Interface"]
     end
 
+    %% ======================= BACKEND ======================
     subgraph Server["⚙️ Backend (Spring Boot)"]
-        AuthAPI["Auth Service"]
-        JobAPI["Job Service"]
-        AppAPI["Application Service"]
-        UserAPI["User/Profile Service"]
-        CompanyAPI["Company Service"]
+        AuthService["AuthService"]
+        UserService["UserService"]
+        JobService["JobService"]
+        CompanyService["CompanyService"]
+        ApplicationService["ApplicationService"]
+        SavedJobService["SavedJobService"]
+        NotificationService["NotificationService"]
+        EmailService["EmailService"]
     end
 
+    %% ======================= DATABASE ======================
     subgraph DB["🗄 PostgreSQL"]
-        Users[(users)]
-        Jobs[(jobs)]
-        Applications[(applications)]
-        Companies[(companies)]
-        Roles[(roles)]
-        Saved[(saved_jobs)]
+        UserTable[(users)]
+        CompanyTable[(companies)]
+        JobTable[(jobs)]
+        CandidateTable[(candidates)]
+        EmployerTable[(employers)]
+        ApplicationTable[(applications)]
+        SavedJobTable[(saved_jobs)]
+        NotificationTable[(notifications)]
+        RoleTable[(roles)]
     end
 
-    UI --> AuthAPI
-    UI --> JobAPI
-    UI --> AppAPI
-    UI --> UserAPI
-    UI --> CompanyAPI
+    %% ======================= UI TO API =====================
+    UI --> AuthService
+    UI --> UserService
+    UI --> JobService
+    UI --> CompanyService
+    UI --> ApplicationService
+    UI --> SavedJobService
+    UI --> NotificationService
 
-    AuthAPI --> Users
-    JobAPI --> Jobs
-    AppAPI --> Applications
-    UserAPI --> Users
-    CompanyAPI --> Companies
-    JobAPI --> Companies
-    Users --> Roles
-    Saved --> Users
-    Saved --> Jobs
+    %% ======================= SERVICES TO DATABASE ==========
+    AuthService --> UserTable
+    AuthService --> RoleTable
+
+    UserService --> UserTable
+    UserService --> CandidateTable
+    UserService --> EmployerTable
+
+    CompanyService --> CompanyTable
+
+    JobService --> JobTable
+    JobService --> CompanyTable
+
+    ApplicationService --> ApplicationTable
+    ApplicationService --> UserTable
+    ApplicationService --> JobTable
+
+    SavedJobService --> SavedJobTable
+    SavedJobTable --> UserTable
+    SavedJobTable --> JobTable
+
+    NotificationService --> NotificationTable
+    NotificationService --> UserTable
+
+    EmailService --> NotificationService
 ```
 -------------------------------------------------------------------------------------------------
 
