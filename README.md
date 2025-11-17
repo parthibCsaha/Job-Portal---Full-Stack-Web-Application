@@ -1,17 +1,18 @@
 ### 🚀 Job Portal – Full Stack Web Application
-<p>
+
     A modern full-stack recruitment platform built with Spring Boot, React (Vite), and PostgreSQL.
-    It connects candidates, employers, and admins through a clean, secure, and scalable system. </p>
+    It connects candidates, employers, and admins through a clean, secure, and scalable system. 
 ------------------------------------------------------------------------------------------------------------
 ### ⭐ Features
   #### 👨‍🎓 Candidates
-
+<ul>
     Browse & filter jobs (location, type, experience, keywords)
     View job details with company info
     Apply with cover letter + resume upload
     Track application status
     Save jobs for later
     Manage profile
+</ul>
 
   #### 👨‍💼 Employers
     
