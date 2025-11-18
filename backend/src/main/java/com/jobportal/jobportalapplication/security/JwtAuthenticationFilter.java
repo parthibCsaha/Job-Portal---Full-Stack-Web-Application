@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             System.out.println("JWT Token extracted: " + (jwt != null ? "YES (length: " + jwt.length() + ")" : "NO"));
 
             if (jwt != null) {
-                System.out.println("🔍 Validating token...");
+                System.out.println("Validating token...");
                 boolean isValid = tokenProvider.validateToken(jwt);
                 System.out.println("Token valid: " + isValid);
 
