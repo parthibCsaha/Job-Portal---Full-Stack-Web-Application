@@ -53,7 +53,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))  // ✅ Use injected CorsConfig
+                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))  // Use injected CorsConfig
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
@@ -66,7 +66,7 @@ public class SecurityConfig {
                         // Admin only
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // ✅ All other authenticated requests
+                        // All other authenticated requests
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
