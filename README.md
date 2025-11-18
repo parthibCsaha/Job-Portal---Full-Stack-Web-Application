@@ -212,6 +212,9 @@ sequenceDiagram
 ### Employer 
 ![Employer](screenshots/employer.png)
 
+### Apply Job   
+![Apply Job](screenshots/user.png)
+
 ------------------------------------------------------------------------------------------------
 ### ✅ API Endpoints
 #### Authentication (/api/auth)
