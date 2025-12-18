@@ -109,24 +109,20 @@ flowchart LR
     EmailService --> NotificationService
 ```
 -------------------------------------------------------------------------------------------------
-### 📊 Data Model (ER Diagram)
+
+## 📊 Data Model (ER Diagram)
 ```mermaid
 erDiagram
   USER ||--|{ CANDIDATE : "is"
   USER ||--|{ EMPLOYER : "is"
   USER }|--|| ROLE : "has"
-  
   EMPLOYER }|--|| COMPANY : "works_for"
   EMPLOYER ||--|{ JOB : "creates"
-  
   COMPANY ||--|{ JOB : "offers"
-  
   JOB ||--|{ APPLICATION : "receives"
   JOB ||--|{ SAVEDJOB : "is_saved_as"
-  
   CANDIDATE ||--|{ APPLICATION : "submits"
   CANDIDATE ||--|{ SAVEDJOB : "saves"
-  
   APPLICATION {
     Long id
     Long job_id
@@ -136,7 +132,6 @@ erDiagram
     String cover_letter
     Timestamp applied_at
   }
-  
   JOB {
     Long id
     String title
@@ -146,43 +141,32 @@ erDiagram
     Long company_id
     Long employer_id
   }
-  
   USER {
     Long id
     String name
     String email
     String password
   }
-  
   ROLE {
     Long id
     String name
   }
-  
   CANDIDATE {
     Long id
     Long user_id
   }
-  
   EMPLOYER {
     Long id
     Long user_id
     Long company_id
   }
-  
   SAVEDJOB {
     Long id
     Long job_id
     Long user_id
   }
-  
-  NOTIFICATION {
-    Long id
-    Long user_id
-    String message
-    Boolean read
-  }
 ```
+
 ----------------------------------------------------------------------------------------------
 ### 🔐 Authentication Flow
 ```mermaid
