@@ -113,9 +113,8 @@ flowchart LR
 ## 📊 Data Model (ER Diagram)
 ```mermaid
 erDiagram
-  USER ||--|{ CANDIDATE : "is"
-  USER ||--|{ EMPLOYER : "is"
-  USER }|--|| ROLE : "has"
+  USER ||--|| CANDIDATE : "is"
+  USER ||--|| EMPLOYER : "is"
   EMPLOYER }|--|| COMPANY : "works_for"
   EMPLOYER ||--|{ JOB : "creates"
   COMPANY ||--|{ JOB : "offers"
@@ -123,48 +122,76 @@ erDiagram
   JOB ||--|{ SAVEDJOB : "is_saved_as"
   CANDIDATE ||--|{ APPLICATION : "submits"
   CANDIDATE ||--|{ SAVEDJOB : "saves"
-  APPLICATION {
-    Long id
-    Long job_id
-    Long candidate_id
-    String status
-    String resume_url
-    String cover_letter
-    Timestamp applied_at
-  }
-  JOB {
-    Long id
-    String title
-    String description
-    String job_type
-    String job_status
-    Long company_id
-    Long employer_id
-  }
   USER {
     Long id
-    String name
     String email
     String password
-  }
-  ROLE {
-    Long id
-    String name
+    Role role
+    Boolean isActive
+    LocalDateTime createdAt
+    LocalDateTime updatedAt
   }
   CANDIDATE {
     Long id
     Long user_id
+    String fullName
+    String phone
+    String location
+    String resumeUrl
+    String skills
+    String experience
+    String education
+    LocalDateTime createdAt
   }
   EMPLOYER {
     Long id
     Long user_id
     Long company_id
+    String position
+    String phone
+    LocalDateTime createdAt
+  }
+  COMPANY {
+    Long id
+    String name
+    String description
+    String industry
+    String location
+    String website
+    String logoUrl
+    LocalDateTime createdAt
+    LocalDateTime updatedAt
+  }
+  JOB {
+    Long id
+    Long company_id
+    Long employer_id
+    String title
+    String description
+    String requirements
+    String location
+    JobType jobType
+    String salaryRange
+    LocalDate createdAt
+    LocalDateTime updatedAt
+  }
+  APPLICATION {
+    Long id
+    Long job_id
+    Long candidate_id
+    String coverLetter
+    String resumeUrl
+    ApplicationStatus status
+    LocalDateTime appliedDate
+    LocalDateTime updatedAt
   }
   SAVEDJOB {
     Long id
+    Long candidate_id
     Long job_id
-    Long user_id
+    LocalDateTime savedAt
   }
+
 ```
 
 ----------------------------------------------------------------------------------------------
@@ -214,67 +241,39 @@ sequenceDiagram
 
 ------------------------------------------------------------------------------------------------
 ### ✅ API Endpoints
-#### Authentication (/api/auth)
 
-- POST /api/auth/register → Register a new user
-- POST /api/auth/login → Login & get JWT
+### Authentication (`/api/auth`)
+- `POST /api/auth/register` – Register a new user
+- `POST /api/auth/login` – Login & get JWT
 
-#### Users (/api/users) 
-#### (Authenticated user only)
+### Users (`/api/users`)
+- `GET /api/users/profile` – Get current user profile
+- `PUT /api/users/profile` – Update current user profile
+- `PUT /api/users/change-password` – Change password
 
-- GET /api/users/profile → Get current user profile
-- PUT /api/users/profile → Update current user profile
-- PUT /api/users/change-password → Change password
+### Jobs (`/api/jobs`)
+- `GET /api/jobs` – Get all jobs (pagination + sorting)
+- `GET /api/jobs/search` – Search jobs (keyword, location, jobType, experience, company, pagination)
+- `GET /api/jobs/{id}` – Get job details
+- `POST /api/jobs` – Create a job (Employer only)
+- `PUT /api/jobs/{id}` – Update a job (Employer only)
+- `DELETE /api/jobs/{id}` – Delete a job (Employer only)
+- `GET /api/jobs/my-jobs` – Get employer's own posted jobs (Employer only)
 
-#### Jobs (/api/jobs)
+### Companies (`/api/companies`)
+- `GET /api/companies` – Get all companies (paginated)
+- `GET /api/companies/{id}` – Get company details
+- `POST /api/companies` – Create company (Admin only)
+- `PUT /api/companies/{id}` – Update company (Admin only)
+- `DELETE /api/companies/{id}` – Delete company (Admin only)
 
-- GET /api/jobs → Get all jobs (pagination + sorting)
-- GET /api/jobs/search → Search jobs (keyword, location, jobType, experience, company, pagination)
-- GET /api/jobs/{id} → Get job details
+### Applications (`/api/applications`)
+- `POST /api/applications` – Apply for a job (Candidate only)
+- `GET /api/applications/my-applications` – Get candidate applications (Candidate only)
+- `GET /api/applications/job/{jobId}` – Get all applications for a job (Employer only)
+- `PUT /api/applications/{id}/status?status=STATUS` – Update application status (Employer only)
+- `GET /api/applications/{id}` – View application by ID (Candidate or Employer)
 
-#### (Employer only)
-
-- POST /api/jobs → Create a job
-- PUT /api/jobs/{id} → Update a job
-- DELETE /api/jobs/{id} → Delete a job
-- GET /api/jobs/my-jobs → Get employer's own posted jobs
-
-#### Companies (/api/companies)
-
-- GET /api/companies → Get all companies (paginated)
-- GET /api/companies/{id} → Get company details
-
-#### (Admin only)
-
-- POST /api/companies → Create company
-- PUT /api/companies/{id} → Update company
-- DELETE /api/companies/{id} → Delete company
-
-#### Applications (/api/applications)
-#### (Candidate only)
-
-- POST /api/applications → Apply for a job
-- GET /api/applications/my-applications → Get candidate applications
-
-#### (Employer only)
-
-- GET /api/applications/job/{jobId} → Get all applications for a job
-- PUT /api/applications/{id}/status?status=STATUS → Update application status
-- (STATUS = PENDING / REVIEWED / SHORTLISTED / ACCEPTED / REJECTED)
-
-#### (Candidate or Employer)
-
-- GET /api/applications/{id} → View application by ID
-
---------------------------------------------------------------------------------------------------
-### ✅ Features
-
-- Job search with filters (location, type, experience)
--  Apply with resume + cover letter
--  Save jobs for later
--  User dashboard for candidates and employers
--  Role-based access: Admin / Employer / Candidate
--  Email notifications (on application submit/status change)
   
 -------------------------------------------------------------------------------------------------
 ### ⚙️ Tech Stack
